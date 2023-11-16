@@ -2,6 +2,17 @@
 import { RouterLink, RouterView } from 'vue-router'
 import SupportIcon from './components/icons/IconSupport.vue'
 import DocumentationIcon from './components/icons/IconDocumentation.vue'
+import { useSongStore } from './stores/songs';
+const { fetchSongs, fetchSongsFavorite, fetchFavoriteIds } = useSongStore();
+fetchFavoriteIds();
+fetchSongsFavorite();
+const clickTab = (tabName) => {
+  if (tabName === 'favorite') {
+    fetchSongsFavorite();
+  } else {
+    fetchSongs();
+  }
+}
 </script>
 
 <template>
@@ -10,12 +21,12 @@ import DocumentationIcon from './components/icons/IconDocumentation.vue'
       <div class="section-title">
         <h1 class="green">VNCOC SONGS</h1>
       </div>
-      <nav class="tab-menu">
-            <RouterLink to="/" class="menu">
+      <nav class="tab-menu flex justify-center">
+            <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
               <DocumentationIcon />
               <span>Danh sách</span>
             </RouterLink>
-          <RouterLink to="/about" class="menu">
+          <RouterLink to="/favorite" class="menu text-slate-900" @click="clickTab('favorite')">
             <SupportIcon />
             <span>Yêu thích</span>
           </RouterLink>
@@ -52,12 +63,11 @@ nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
   display: flex;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: hsla(160, 100%, 37%, 1);
 }
 
 nav a.router-link-exact-active:hover {
@@ -79,32 +89,5 @@ nav a:first-of-type {
   justify-content: center;
   align-items: center;
   gap: 10px;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
 </style>

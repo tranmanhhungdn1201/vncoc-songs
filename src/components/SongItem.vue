@@ -1,28 +1,53 @@
 <script setup>
+import { ref } from 'vue'
 import SupportIcon from './icons/IconSupport.vue'
 import { useRouter } from 'vue-router';
-
+import { loadState, saveState } from '../helper/localStorage.helper'
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 const router = useRouter();
 
 const props = defineProps({
   songID: Number,
   name1: String,
   name2: String,
+  isFavorite: Boolean
 })
-const clickSong = async (id) => {
-  router.push(`/songs/${id}`);
+const isFavorite = ref(props.isFavorite);
+const clickSong = async (id, event) => {
+  console.log(event.target.tagName)
+  if (event.target.tagName !== 'path') {
+    router.push(`/songs/${id}`);
+  }
 }
-
+const likeSong = () => {
+  let lgFavorite = loadState('favorite') ?? [];
+  let idxSong =  lgFavorite.indexOf(props.songID);
+  if (idxSong !== -1) {
+    lgFavorite.splice(idxSong, 1);
+    toast.success('Đã hủy chọn bài hát yêu thích!');
+  } else {
+    lgFavorite.push(props.songID);
+    toast.success('Đã chọn thành bài hát yêu thích!');
+  }
+  lgFavorite = [...new Set(lgFavorite)];
+  isFavorite.value = !isFavorite.value;
+  saveState(lgFavorite, 'favorite')
+}
 </script>
 <template>
-  <div @click="clickSong(props.songID)" class="item cursor-pointer hover:bg-slate-50 p-3 rounded-lg items-center">
+  <div @click="clickSong(props.songID, $event)" class="item cursor-pointer hover:bg-slate-50 p-3 rounded-lg items-center">
     <div  class="details">
       <h3>
         {{props.name1}}
       </h3>
       {{props.name2}}
     </div>
-    <SupportIcon class="fill-gray-300 hover:fill-green-700"/>
+    <SupportIcon
+      :class="{'fill-green-700': isFavorite }"
+      class="fill-gray-300 hover:fill-green-700"
+      @click="likeSong()"
+    />
   </div>
 </template>
 
