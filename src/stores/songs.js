@@ -8,7 +8,7 @@ export const useSongStore = defineStore('songs', {
       song: null,
       songsOriginal: [],
       songs: [],
-      songsNonDiacritics: [],
+      loading: false,
       favoriteIds: [],
       lang: 'vi',
       error: null
@@ -22,6 +22,7 @@ export const useSongStore = defineStore('songs', {
   actions: {
     async fetchSongs() {
       this.songs = []
+      this.loading = true;
       try {
         let data = await getData();
         data = data.map((song, idx) => {
@@ -30,16 +31,17 @@ export const useSongStore = defineStore('songs', {
             isFavorite: this.favoriteIds.includes(idx),
           }
         })
-        console.log(data)
         this.songs = data;
         this.songsOriginal = data;
       } catch (error) {
         console.error(error)
         this.error = error
       }
+      this.loading = false;
     },
     async fetchSongsFavorite() {
       this.songs = []
+      this.loading = true;
       try {
         let data = await getData();
         data = data.map((song, idx) => {
@@ -55,23 +57,23 @@ export const useSongStore = defineStore('songs', {
         console.error(error)
         this.error = error
       }
+      this.loading = false;
     },
     async fetchSong(songId) {
+      this.loading = true;
       this.song = null
       try {
         let song = await getItem(songId);
-        song.lyric2 = song.lyric2.replace(/\\n/g, '<br>');
-        song.lyric1 = song.lyric1.replace(/\\n/g, '<br>');
+        song.lyric = song.lyric.replace(/\\n/g, '<br>');
         this.song = song;
-        console.log(song)
       } catch (error) {
         console.error(error)
         this.error = error
       }
+      this.loading = false;
     },
     async fetchFavoriteIds() {
       this.favoriteIds = loadState('favorite') ?? [];
-      console.log(this.favoriteIds);
     },
     searchSong(searchTerm) {
       if (searchTerm.trim() == '') {

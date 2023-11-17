@@ -9,10 +9,10 @@ const id = route.params.id;
 fetchSong(id);
 </script>
 <template>
-  <div class="border-t flex flex-col pt-10 mt-4 border-grey-500 leading-5 bg-scroll overflow-auto about whitespace-pre-line text-center">
-    <h1 class="bold text-2xl mb-2">{{ song?.name1 }}</h1>
-    <h2 class="text-lg mb-10">({{ song?.name2 }})</h2>
-    <div class="text-base" v-html="song?.lyric2"></div>
+  <div class="px-4 flex flex-col pt-5 border-grey-500 leading-5 bg-scroll about whitespace-pre-line text-center">
+    <h1 class="bold text-2xl mb-2 leading-8">{{ song?.name1 }}</h1>
+    <h2 class="text-lg mb-10">{{ song?.name2 ? `(${song?.name2})` : '' }}</h2>
+    <div class="text-base leading-8" v-html="song?.lyric"></div>
   </div>
 </template>
 

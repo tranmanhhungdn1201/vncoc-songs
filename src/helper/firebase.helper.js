@@ -11,7 +11,7 @@ const db = getDatabase(app);
 // Get a list of cities from your database
 export async function getData() {
     const dbRef = ref(db);
-    return get(child(dbRef, `/songs`)).then((snapshot) => {
+    return get(child(dbRef, `/songs1`)).then((snapshot) => {
         if (snapshot.exists()) {
             return snapshot.val();
         } else {
@@ -26,7 +26,7 @@ export async function getData() {
 
 export async function getItem(id) {
     const dbRef = ref(db);
-    return get(child(dbRef, `/songs/${id}`)).then((snapshot) => {
+    return get(child(dbRef, `/songs1/${id}`)).then((snapshot) => {
         if (snapshot.exists()) {
             return snapshot.val();
         } else {

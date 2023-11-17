@@ -2,8 +2,9 @@
 import { RouterLink, RouterView } from 'vue-router'
 import SupportIcon from './components/icons/IconSupport.vue'
 import DocumentationIcon from './components/icons/IconDocumentation.vue'
+import IconFavoriteOutLine from './components/icons/IconFavoriteOutLine.vue'
 import { useSongStore } from './stores/songs';
-const { fetchSongs, fetchSongsFavorite, fetchFavoriteIds } = useSongStore();
+const { fetchSongs, fetchSongsFavorite, fetchFavoriteIds, changeTab } = useSongStore();
 fetchFavoriteIds();
 fetchSongs();
 const clickTab = (tabName) => {
@@ -16,24 +17,23 @@ const clickTab = (tabName) => {
 </script>
 
 <template>
-  <header>
+  <header class="sticky top-0 bg-white border-b pb-2">
     <div class="wrapper">
       <div class="section-title">
-        <h1 class="green">VNCOC SONGS</h1>
+        <h1 class="green lg:text-4xl text-3xl font-medium mb-4">VNCOC SONGS</h1>
       </div>
       <nav class="tab-menu flex justify-center">
           <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
             <DocumentationIcon />
-            <span>Danh sách</span>
+            <span class="text-base">Danh sách</span>
           </RouterLink>
           <RouterLink to="/favorite" class="menu text-slate-900" @click="clickTab('favorite')">
-            <SupportIcon />
-            <span>Yêu thích</span>
+            <IconFavoriteOutLine />
+            <span class="text-base">Yêu thích</span>
           </RouterLink>
       </nav>
     </div>
   </header>
-
   <RouterView />
 </template>
 
@@ -41,13 +41,6 @@ const clickTab = (tabName) => {
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  position: relative;
-  top: -10px;
 }
 
 h3 {
