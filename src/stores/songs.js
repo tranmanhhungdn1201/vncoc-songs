@@ -6,7 +6,9 @@ export const useSongStore = defineStore('songs', {
   state: () => {
     return {
       song: null,
+      songsOriginal: [],
       songs: [],
+      songsNonDiacritics: [],
       favoriteIds: [],
       lang: 'vi',
       error: null
@@ -15,7 +17,7 @@ export const useSongStore = defineStore('songs', {
   getters: {
     getSongFavorite: (state) => {
       return () => state.songs.filter((song, idx) => state.favoriteIds.includes(idx))
-    }
+    },
   },
   actions: {
     async fetchSongs() {
@@ -30,6 +32,7 @@ export const useSongStore = defineStore('songs', {
         })
         console.log(data)
         this.songs = data;
+        this.songsOriginal = data;
       } catch (error) {
         console.error(error)
         this.error = error
@@ -47,6 +50,7 @@ export const useSongStore = defineStore('songs', {
         })
         data = data.filter((song, idx) => this.favoriteIds.includes(idx));
         this.songs = data;
+        this.songsOriginal = data;
       } catch (error) {
         console.error(error)
         this.error = error
@@ -66,8 +70,24 @@ export const useSongStore = defineStore('songs', {
       }
     },
     async fetchFavoriteIds() {
-      this.favoriteIds = loadState('favorite');
+      this.favoriteIds = loadState('favorite') ?? [];
       console.log(this.favoriteIds);
+    },
+    searchSong(searchTerm) {
+      if (searchTerm.trim() == '') {
+        this.songs = this.songsOriginal;
+      }
+      const searchTermWithoutDiacritics = this.removeDiacritics(searchTerm);
+      const that = this;
+      let data = this.songsOriginal;
+      this.songs = data.filter(song => {
+        const songTitle1WithoutDiacritics = that.removeDiacritics(song.name1.toLowerCase());
+        const songTitle2WithoutDiacritics = that.removeDiacritics(song.name2.toLowerCase());
+        return songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics);
+      });
+    },
+    removeDiacritics(str) {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
     }
   },
 })

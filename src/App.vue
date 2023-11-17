@@ -5,7 +5,7 @@ import DocumentationIcon from './components/icons/IconDocumentation.vue'
 import { useSongStore } from './stores/songs';
 const { fetchSongs, fetchSongsFavorite, fetchFavoriteIds } = useSongStore();
 fetchFavoriteIds();
-fetchSongsFavorite();
+fetchSongs();
 const clickTab = (tabName) => {
   if (tabName === 'favorite') {
     fetchSongsFavorite();
@@ -22,10 +22,10 @@ const clickTab = (tabName) => {
         <h1 class="green">VNCOC SONGS</h1>
       </div>
       <nav class="tab-menu flex justify-center">
-            <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
-              <DocumentationIcon />
-              <span>Danh sách</span>
-            </RouterLink>
+          <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
+            <DocumentationIcon />
+            <span>Danh sách</span>
+          </RouterLink>
           <RouterLink to="/favorite" class="menu text-slate-900" @click="clickTab('favorite')">
             <SupportIcon />
             <span>Yêu thích</span>
