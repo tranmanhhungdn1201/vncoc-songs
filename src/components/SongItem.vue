@@ -25,7 +25,7 @@ const clickSong = async (id, event) => {
 }
 const likeSong = () => {
   let lgFavorite = loadState('favorite') ?? [];
-  let idxSong =  lgFavorite.indexOf(props.songID);
+  let idxSong = lgFavorite.indexOf(props.songID);
   if (idxSong !== -1) {
     lgFavorite.splice(idxSong, 1);
     toast.success('Đã hủy chọn bài hát yêu thích!');

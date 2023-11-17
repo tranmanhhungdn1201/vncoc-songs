@@ -84,8 +84,12 @@ export const useSongStore = defineStore('songs', {
       let data = this.songsOriginal;
       this.songs = data.filter(song => {
         const songTitle1WithoutDiacritics = that.removeDiacritics(song.name1.toLowerCase());
-        const songTitle2WithoutDiacritics = that.removeDiacritics(song.name2.toLowerCase());
-        return songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics);
+        let rs = songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || song.id.includes(searchTermWithoutDiacritics);
+        if (song.name2) {
+          const songTitle2WithoutDiacritics = that.removeDiacritics(song.name2.toLowerCase());
+          return rs || songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics)
+        }
+        return rs;
       });
     },
     removeDiacritics(str) {

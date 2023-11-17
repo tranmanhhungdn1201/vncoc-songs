@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import SupportIcon from './components/icons/IconSupport.vue'
 import DocumentationIcon from './components/icons/IconDocumentation.vue'
 import IconFavoriteOutLine from './components/icons/IconFavoriteOutLine.vue'
 import { useSongStore } from './stores/songs';
