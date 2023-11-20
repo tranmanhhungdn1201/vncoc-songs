@@ -43,13 +43,13 @@ const likeSong = () => {
 }
 </script>
 <template>
-  <div class="item flex mt-2 cursor-pointer hover:bg-slate-50 p-3 rounded-lg items-center">
-    <div class="flex-1 ml-1" @click="clickSong(props.songID, $event)">
-      <h3 class="md:text-lg text-base font-medium mb-1.5">
-        <span class="bg-green-100 text-green-800 text-base font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ props.songCode }}</span>
+  <div class="item flex cursor-pointer hover:bg-slate-50 p-3 items-center border-b">
+    <span class="bg-green-100 text-green-800 md:text-base text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ props.songCode }}</span>
+    <div class="flex-1 ml-1 md:ml-5" @click="clickSong(props.songID, $event)">
+      <h3 class="md:text-lg text-sm font-medium">
         {{props.name1}}
       </h3>
-      <span class="text-sm ml-16">{{props.name2}}</span>
+      <span class="md:text-sm text-xs">{{props.name2}}</span>
     </div>
     <div>
       <SupportIcon

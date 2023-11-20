@@ -16,7 +16,7 @@ const clickTab = (tabName) => {
 </script>
 
 <template>
-  <header class="sticky top-0 bg-white border-b pb-2">
+  <header class="sticky top-0 bg-white border-b pb-2 z-50">
     <div class="wrapper">
       <div class="section-title">
         <h1 class="green lg:text-4xl text-3xl font-medium mb-4">VNCOC SONGS</h1>
