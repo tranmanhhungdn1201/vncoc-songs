@@ -4,7 +4,7 @@ module.exports = {
     content: [],
     theme: {
         fontFamily: {
-            default: ['Nunito', 'sans-serif']
+            default: ['sans-serif']
         },
         fontSize: {
             '3xs': '10px',

@@ -63,7 +63,7 @@ export const useSongStore = defineStore('songs', {
       this.loading = true;
       this.song = null
       try {
-        let song = await getItem(songId);
+        let song = this.songs.find(song => song.id == songId);
         song.lyric = song.lyric.replace(/\\n/g, '<br>');
         this.song = song;
       } catch (error) {

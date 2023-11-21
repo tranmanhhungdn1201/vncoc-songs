@@ -19,7 +19,7 @@ const clickTab = (tabName) => {
   <header class="sticky top-0 bg-white border-b pb-2 z-50">
     <div class="wrapper">
       <div class="section-title">
-        <h1 class="green lg:text-4xl text-3xl font-medium mb-4">VNCOC SONGS</h1>
+        <h1 class="green lg:text-4xl text-3xl font-semibold mb-4">VNCOC SONGS</h1>
       </div>
       <nav class="tab-menu flex justify-center">
           <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
