@@ -3,33 +3,36 @@ import { RouterLink, RouterView } from 'vue-router'
 import DocumentationIcon from './components/icons/IconDocumentation.vue'
 import IconFavoriteOutLine from './components/icons/IconFavoriteOutLine.vue'
 import { useSongStore } from './stores/songs';
-const { fetchSongs, fetchSongsFavorite, fetchFavoriteIds, changeTab } = useSongStore();
+import { useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia'
+const router = useRouter();
+const { fetchSongs, fetchFavoriteIds, changeTab } = useSongStore();
+const { tab } = storeToRefs(useSongStore());
 fetchFavoriteIds();
 fetchSongs();
 const clickTab = (tabName) => {
-  if (tabName === 'favorite') {
-    fetchSongsFavorite();
-  } else {
-    fetchSongs();
+  changeTab(tabName);
+  if (router.currentRoute._value.name != 'home') {
+    router.push(`/`);
   }
 }
 </script>
 
 <template>
   <header class="sticky top-0 bg-white border-b pb-2 z-50">
-    <div class="wrapper">
-      <div class="section-title">
+    <div>
+      <div class="text-center">
         <h1 class="green lg:text-4xl text-3xl font-semibold mb-4">VNCOC SONGS</h1>
       </div>
-      <nav class="tab-menu flex justify-center">
-          <RouterLink to="/" class="menu text-slate-900" @click="clickTab('normal')">
-            <DocumentationIcon />
+      <nav class="flex justify-center gap-2">
+        <a class="menu flex justify-center items-center cursor-pointer" :class="{ 'text-black': tab == 'normal'}" @click="clickTab('normal')">
+          <DocumentationIcon />
             <span class="text-base">Danh sách</span>
-          </RouterLink>
-          <RouterLink to="/favorite" class="menu text-slate-900" @click="clickTab('favorite')">
-            <IconFavoriteOutLine />
+        </a>
+        <a class="menu flex justify-center items-center gap-2 border-l pl-2 cursor-pointer" :class="{ 'text-black': tab == 'favorite'}" @click="clickTab('favorite')">
+          <IconFavoriteOutLine />
             <span class="text-base">Yêu thích</span>
-          </RouterLink>
+        </a>
       </nav>
     </div>
   </header>
@@ -37,45 +40,6 @@ const clickTab = (tabName) => {
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-.section-title h1,
-.section-title h3 {
-  text-align: center;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  display: flex;
-}
-
-nav a.router-link-exact-active {
-  color: hsla(160, 100%, 37%, 1);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
 .menu {
   display: flex;
   justify-content: center;
