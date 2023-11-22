@@ -3,20 +3,23 @@ import { getData, getItem } from "../helper/firebase.helper";
 import { loadState } from '../helper/localStorage.helper'
 
 export const useSongStore = defineStore('songs', {
-  state: () => {
-    return {
+  state: () => ({
       song: null,
       songsOriginal: [],
       songs: [],
+      tab: 'normal',
       loading: false,
       favoriteIds: [],
       lang: 'vi',
       error: null
-    }
-  },
+  }),
   getters: {
-    getSongFavorite: (state) => {
-      return () => state.songs.filter((song, idx) => state.favoriteIds.includes(idx))
+    listSong: (state) => {
+      if (state.tab === 'favorite') {
+        return state.songs.filter((song, idx) => state.favoriteIds.includes(idx));
+      } else {
+        return state.songs;
+      }
     },
   },
   actions: {
@@ -94,6 +97,9 @@ export const useSongStore = defineStore('songs', {
     },
     removeDiacritics(str) {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    },
+    changeTab(tabName) {
+      this.tab = tabName;
     }
   },
 })
