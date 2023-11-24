@@ -25,11 +25,11 @@ const clickTab = (tabName) => {
         <h1 class="green lg:text-4xl text-3xl font-semibold mb-4">VNCOC SONGS</h1>
       </div>
       <nav class="flex justify-center gap-2">
-        <a class="menu flex justify-center items-center cursor-pointer" :class="{ 'text-black': tab == 'normal'}" @click="clickTab('normal')">
+        <a class="menu flex justify-center items-center cursor-pointer text-black" :class="{ 'text-emerald-500': tab == 'normal'}" @click="clickTab('normal')">
           <DocumentationIcon />
             <span class="text-base">Danh sách</span>
         </a>
-        <a class="menu flex justify-center items-center gap-2 border-l pl-2 cursor-pointer" :class="{ 'text-black': tab == 'favorite'}" @click="clickTab('favorite')">
+        <a class="menu flex justify-center items-center gap-2 border-l pl-2 cursor-pointer text-black" :class="{ 'text-emerald-500': tab == 'favorite'}" @click="clickTab('favorite')">
           <IconFavoriteOutLine />
             <span class="text-base">Yêu thích</span>
         </a>

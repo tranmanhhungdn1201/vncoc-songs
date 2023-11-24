@@ -4,7 +4,6 @@ import { loadState } from '../helper/localStorage.helper'
 
 export const useSongStore = defineStore('songs', {
   state: () => ({
-      song: null,
       songsOriginal: [],
       songs: [],
       tab: 'normal',
@@ -16,7 +15,15 @@ export const useSongStore = defineStore('songs', {
   getters: {
     listSong: (state) => {
       if (state.tab === 'favorite') {
-        return state.songs.filter((song, idx) => state.favoriteIds.includes(idx));
+        if (!state.favoriteIds) {
+          return state.songs;
+        }
+        const filter = state.songs.filter(song => {
+          console.log(song.id, state.favoriteIds);
+          return state.favoriteIds.includes(song.id);
+        });
+        console.log(123, filter)
+        return filter;
       } else {
         return state.songs;
       }
@@ -28,10 +35,10 @@ export const useSongStore = defineStore('songs', {
       this.loading = true;
       try {
         let data = await getData();
-        data = data.map((song, idx) => {
+        data = data.map(song => {
           return {
             ...song,
-            isFavorite: this.favoriteIds.includes(idx),
+            isFavorite: this.favoriteIds.includes(song.id),
           }
         })
         this.songs = data;

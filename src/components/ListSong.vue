@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import SongItem from './SongItem.vue'
 import { useSongStore } from '../stores/songs'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 const router = useRouter();
 const { listSong } = storeToRefs(useSongStore());
+const list = reactive(listSong);
 const textSeach = ref('');
 </script>
 
@@ -21,20 +22,16 @@ const textSeach = ref('');
           <input type="search" v-model="textSeach" @keyup="searchSong(textSeach)" id="default-search" class="block w-full p-3 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tìm kiếm bài hát">
       </div>
     </div>
-    <template v-if="!loading && listSong.length">
+    <template v-if="!loading && list.length">
       <SongItem
-          v-for="(song, idx) in listSong"
-          :key="idx"
-          :name1="song.name1"
-          :name2="song.name2"
-          :songID="idx"
-          :songCode="song.id"
-          :isFavorite="song.isFavorite"
+          v-for="(song, idx) in list"
+            :song="song"
+            :key="idx"
           >
       </SongItem>
   </template>
   </div>
-  <h3 v-if="!loading && !listSong.length" class="text-center mt-10">Không có bài hát!</h3>
+  <h3 v-if="!loading && !list.length" class="text-center mt-10">Không có bài hát!</h3>
 </template>
 <style scoped>
 </style>
