@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
+  // history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -10,15 +11,11 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/favorite',
-      name: 'favorite',
-      component: HomeView
-    },
-    {
       path: '/songs/:id',
       name: 'single-song',
       component: () => import('../views/LyricView.vue')
-    }
+    },
+    { path: "/:catchAll(.*)", component: () => import('../views/NotFound.vue') }
   ]
 })
 

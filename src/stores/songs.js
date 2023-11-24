@@ -5,6 +5,7 @@ import { loadState } from '../helper/localStorage.helper'
 export const useSongStore = defineStore('songs', {
   state: () => ({
       songsOriginal: [],
+      song: null,
       songs: [],
       tab: 'normal',
       loading: false,
@@ -19,10 +20,8 @@ export const useSongStore = defineStore('songs', {
           return state.songs;
         }
         const filter = state.songs.filter(song => {
-          console.log(song.id, state.favoriteIds);
           return state.favoriteIds.includes(song.id);
         });
-        console.log(123, filter)
         return filter;
       } else {
         return state.songs;
@@ -73,9 +72,13 @@ export const useSongStore = defineStore('songs', {
       this.loading = true;
       this.song = null
       try {
+        if (this.songs) {
+          await this.fetchSongs();
+        }
         let song = this.songs.find(song => song.id == songId);
         song.lyric = song.lyric.replace(/\\n/g, '<br>');
         this.song = song;
+        this.tab = 'back';
       } catch (error) {
         console.error(error)
         this.error = error
@@ -89,6 +92,7 @@ export const useSongStore = defineStore('songs', {
       if (searchTerm.trim() == '') {
         this.songs = this.songsOriginal;
       }
+      searchTerm = searchTerm.toLowerCase();
       const searchTermWithoutDiacritics = this.removeDiacritics(searchTerm);
       const that = this;
       let data = this.songsOriginal;
