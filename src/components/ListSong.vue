@@ -9,7 +9,7 @@ const textSeach = ref('');
 </script>
 
 <template>
-  <div class="max-w-screen-xl mb-10 my-0 mx-auto list-song">
+  <div class="max-w-screen-xl mb-20 my-0 mx-auto list-song">
     <div class="mt-5 lg:mb-10 mb-5 px-3">
       <div class="relative">
           <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

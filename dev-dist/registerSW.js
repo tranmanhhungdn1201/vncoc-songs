@@ -1,1 +1,0 @@
-if('serviceWorker' in navigator) navigator.serviceWorker.register('/vncoc-songs/dev-sw.js?dev-sw', { scope: '/vncoc-songs/', type: 'classic' })

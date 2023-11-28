@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { getData, getItem } from "../helper/firebase.helper";
 import { loadState } from '../helper/localStorage.helper'
+import { toast } from 'vue3-toastify';
 
 export const useSongStore = defineStore('songs', {
   state: () => ({
@@ -80,7 +81,8 @@ export const useSongStore = defineStore('songs', {
         this.song = song;
         this.tab = 'back';
       } catch (error) {
-        console.error(error)
+        toast.error('Error');
+        document.location.href = '/'
         this.error = error
       }
       this.loading = false;

@@ -15,8 +15,8 @@ export default defineConfig({
       },
       registerType: 'autoUpdate',
       manifest: {
-        name: 'VNCOC Songs',
-        short_name: 'VNCOC Songs',
+        name: 'VNCOC SONGS',
+        short_name: 'VNCOC SONGS',
         description: 'Hill song',
         theme_color: '#ffffff',
         icons: [
@@ -477,5 +477,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: '/vncoc-songs/'
 })
