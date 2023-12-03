@@ -1,5 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref, get, child, update, remove } from "firebase/database"
+import { initializeApp, getAuth, signInWithEmailAndPassword } from 'firebase/app';
+import { getDatabase, ref, get, child, set } from "firebase/database"
 
 const firebaseConfig = {
     databaseURL: import.meta.env.VITE_FIREBASE_DB_URL,
@@ -7,6 +7,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth();
 
 // Get a list of cities from your database
 export async function getData() {
@@ -39,16 +40,22 @@ export async function getItem(id) {
     });
 }
 
-export async function updateData(resource, data) {
-    const updates = {};
-    updates[`${resource}`] = data;
-    update(ref(db), updates);
+export function writeLyric(songId, data) {
+    const dbRef = ref(db);
+    delete data.isFavorite;
+    set(child(dbRef, `/songs1/${songId}`), data)
 }
 
-export async function removeData(resource) {
-    remove(ref(db, `${resource}`)).then(() => {
-        console.log('removed')
-    }).catch(() => {
-        console.error('err')
+export function signIn(email, password) {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        console.log(user);
+        // ...
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
     });
 }

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LyricView from '../views/LyricView.vue'
+import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
   // history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -13,9 +15,9 @@ const router = createRouter({
     {
       path: '/songs/:id',
       name: 'single-song',
-      component: () => import('../views/LyricView.vue')
+      component: LyricView
     },
-    { path: "/:catchAll(.*)", component: () => import('../views/NotFound.vue') }
+    { path: "/:catchAll(.*)", component: NotFound }
   ]
 })
 

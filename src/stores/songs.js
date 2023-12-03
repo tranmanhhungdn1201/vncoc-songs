@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getData, getItem } from "../helper/firebase.helper";
+import { getData, writeLyric, signIn } from "../helper/firebase.helper";
 import { loadState } from '../helper/localStorage.helper'
 import { toast } from 'vue3-toastify';
 
@@ -7,6 +7,7 @@ export const useSongStore = defineStore('songs', {
   state: () => ({
       songsOriginal: [],
       song: null,
+      songLyricOrigin: '',
       songs: [],
       tab: 'normal',
       loading: false,
@@ -79,6 +80,7 @@ export const useSongStore = defineStore('songs', {
         let song = this.songs.find(song => song.id == songId);
         song.lyric = song.lyric.replace(/\\n/g, '<br>');
         this.song = song;
+        this.songLyricOrigin = song.lyric;
         this.tab = 'back';
       } catch (error) {
         toast.error('Error');
@@ -113,6 +115,17 @@ export const useSongStore = defineStore('songs', {
     },
     changeTab(tabName) {
       this.tab = tabName;
+    },
+    saveSong() {
+      const songIdx = +this.song.id - 1;
+      writeLyric(songIdx, this.song);
+      this.songLyricOrigin = this.song.lyric;
+      signIn('tranmanh.hungdn1201@gmail.com', '1101986');
+      toast.success('Chỉnh sửa thành công.');
+    },
+    revertLyric() {
+      this.song.lyric = this.songLyricOrigin
+      toast.success('Đặt lại thành công.');
     }
   },
 })
