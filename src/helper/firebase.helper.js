@@ -1,7 +1,15 @@
-import { initializeApp, getAuth, signInWithEmailAndPassword } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { getDatabase, ref, get, child, set } from "firebase/database"
 
 const firebaseConfig = {
+    apiKey: "AIzaSyAND-d_qnN3l82b0d5Wfq-x3iroSb3qva8",
+    authDomain: "vncoc-songs.firebaseapp.com",
+    projectId: "vncoc-songs",
+    storageBucket: "vncoc-songs.appspot.com",
+    messagingSenderId: "169452849467",
+    appId: "1:169452849467:web:5de652edaddbe035638f1e",
+    measurementId: "G-SDPPJSHCNK",
     databaseURL: import.meta.env.VITE_FIREBASE_DB_URL,
 };
 // Initialize Firebase
@@ -43,19 +51,26 @@ export async function getItem(id) {
 export function writeLyric(songId, data) {
     const dbRef = ref(db);
     delete data.isFavorite;
-    set(child(dbRef, `/songs1/${songId}`), data)
+    set(child(dbRef, `/songs1/${songId}`), data).then()
 }
 
 export function signIn(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        console.log(user);
-        // ...
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    });
+    return signInWithEmailAndPassword(auth, email, password);
+}
+
+export function logout() {
+    // return signOut(auth);
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('ok', auth)
+      }).catch((error) => {
+        console.error(error)
+        // An error happened.
+      });
+      
+}
+
+export function checkAuth() {
+    console.log('auth', auth.currentUser);
+    return Boolean(auth.currentUser);
 }

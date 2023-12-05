@@ -3,7 +3,8 @@ import {ref} from 'vue';
 import { useRoute } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useSongStore } from '../stores/songs';
-import { QuillEditor } from '@vueup/vue-quill'
+import { QuillEditor } from '@vueup/vue-quill';
+import { checkAuth } from '../helper/firebase.helper';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 const route = useRoute();
@@ -12,7 +13,7 @@ const { fetchSong, saveLyric, saveSong, revertLyric} = useSongStore();
 const id = route.params.id;
 fetchSong(id);
 const admin = ref(false);
-if (route.query.edit == 'true') {
+if (checkAuth()) {
   admin.value = true;
 }
 var toolbarOptions = [

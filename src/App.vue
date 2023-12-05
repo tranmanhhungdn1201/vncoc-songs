@@ -20,7 +20,7 @@ const clickTab = (tabName) => {
 </script>
 
 <template>
-  <header class="sticky top-0 bg-white border-b pb-2 z-50">
+  <header class="sticky top-0 bg-white border-b pb-2 z-50" v-show="$route.path !== '/login'">
     <div>
       <div class="text-center">
         <h1 class="green lg:text-4xl text-3xl font-semibold mb-4">VNCOC SONGS</h1>
@@ -49,11 +49,14 @@ const clickTab = (tabName) => {
   </footer>
 </template>
 
-<style scoped>
+<style>
 .menu {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+.color-main {
+  color: hsla(160, 100%, 37%, 1);
 }
 </style>

@@ -36,7 +36,7 @@ const likeSong = () => {
 </script>
 <template>
   <div class="item flex cursor-pointer hover:bg-slate-50 p-3 items-center border-b">
-    <span class="bg-green-100 text-green-800 md:text-base text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ props.song.id }}</span>
+    <span @click="clickSong(props.song.id, $event)" class="bg-green-100 text-green-800 md:text-base text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ props.song.id }}</span>
     <div class="flex-1 ml-1 md:ml-5" @click="clickSong(props.song.id, $event)">
       <h3 class="md:text-lg text-sm font-semibold">
         {{props.song.name1}}
