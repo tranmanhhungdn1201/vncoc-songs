@@ -44,6 +44,7 @@ const likeSong = () => {
       <span class="md:text-sm text-xs">{{props.song.name2}}</span>
     </div>
     <div>
+      <router-link :to="`/songs/${props.song.id}/edit`">Edit</router-link>
       <SupportIcon
         :class="{'fill-green-700': props.song.isFavorite }"
         class="fill-gray-300 hover:fill-green-700"

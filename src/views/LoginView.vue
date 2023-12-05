@@ -1,19 +1,12 @@
 <script setup>
-import {ref, onMounted} from 'vue';
+import {ref} from 'vue';
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router';
-import { checkAuth } from '../helper/firebase.helper';
 const router = useRouter();
 const store = useAuthStore();
 const { login } = store;
 const email = ref('');
 const password = ref('');
-onMounted(() => {
-    if (checkAuth()) {
-        router.push('/')
-    }
-    console.log(`the component is now mounted.`)
-})
 </script>
 
 <template>
