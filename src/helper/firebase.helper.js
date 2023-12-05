@@ -62,7 +62,6 @@ export function logout() {
     // return signOut(auth);
     signOut(auth).then(() => {
         // Sign-out successful.
-        console.log('ok', auth)
       }).catch((error) => {
         console.error(error)
         // An error happened.
@@ -71,6 +70,5 @@ export function logout() {
 }
 
 export function checkAuth() {
-    console.log('auth', auth.currentUser);
     return Boolean(auth.currentUser);
 }
