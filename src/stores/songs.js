@@ -120,7 +120,6 @@ export const useSongStore = defineStore('songs', {
       const songIdx = +this.song.id - 1;
       writeLyric(songIdx, this.song);
       this.songLyricOrigin = this.song.lyric;
-      signIn('tranmanh.hungdn1201@gmail.com', '1101986');
       toast.success('Chỉnh sửa thành công.');
     },
     revertLyric() {

@@ -4,7 +4,7 @@ import LyricView from '../views/LyricView.vue'
 import LoginView from '../views/LoginView.vue'
 import LyricEditView from '../views/LyricEditView.vue'
 import NotFound from '../views/NotFound.vue'
-import { checkAuth } from '../helper/firebase.helper'
+import { checkAuth, logout } from '../helper/firebase.helper'
 
 const router = createRouter({
   // history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -14,6 +14,11 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: LoginView
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: HomeView
     },
     {
       path: '/',
@@ -40,8 +45,8 @@ const privateRoutes = [
 ];
 
 
-router.beforeEach((to, from, next) => {
-  const checkLogin = checkAuth();
+router.beforeEach(async (to, from, next) => {
+  const checkLogin = await checkAuth();
   if (privateRoutes.includes(to.name)) {
     if (!checkLogin) {
       next('/login');
@@ -52,6 +57,11 @@ router.beforeEach((to, from, next) => {
     if (checkLogin) {
       next('/');
     }
+  }
+
+  if (to.name === 'logout') {
+    logout();
+    next('/');
   }
  
   next();

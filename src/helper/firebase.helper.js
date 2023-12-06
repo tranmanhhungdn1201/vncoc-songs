@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, get, child, set } from "firebase/database"
 
 const firebaseConfig = {
@@ -61,6 +61,7 @@ export function signIn(email, password) {
 export function logout() {
     // return signOut(auth);
     signOut(auth).then(() => {
+        console.log('Sign-out successful.')
         // Sign-out successful.
       }).catch((error) => {
         console.error(error)
@@ -70,5 +71,21 @@ export function logout() {
 }
 
 export function checkAuth() {
-    return Boolean(auth.currentUser);
+    return new Promise((resolve, reject) => {
+        const removeListener = onAuthStateChanged(
+            auth,
+            user => {
+                removeListener();
+                
+                if (user) {
+                    resolve(true)
+                    // User is signed in.
+                } else {
+                    resolve(false)
+                    // No user is signed in.
+                }
+            },
+            reject
+        )
+    })
 }

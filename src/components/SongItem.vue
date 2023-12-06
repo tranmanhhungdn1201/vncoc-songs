@@ -1,6 +1,6 @@
 <script setup>
-import { reactive, ref } from 'vue'
 import SupportIcon from './icons/IconSupport.vue'
+import IconEdit from './icons/IconEdit.vue'
 import { useRouter } from 'vue-router';
 import { loadState, saveState } from '../helper/localStorage.helper'
 import { toast } from 'vue3-toastify';
@@ -9,14 +9,19 @@ import { useSongStore } from '../stores/songs';
 const router = useRouter();
 
 const props = defineProps({
+  isEdit: Boolean,
   song: Object
 })
 const { fetchFavoriteIds } = useSongStore();
-const clickSong = async (id, event) => {
+const clickSong = (id, event) => {
   if (event.target.tagName !== 'path') {
     router.push(`/songs/${id}`);
   }
 }
+const clickEdit = (id) => {
+  router.push(`/songs/${id}/edit`);
+}
+
 const likeSong = () => {
   let lgFavorite = loadState('favorite') ?? [];
   let idxSong = lgFavorite.indexOf(props.song.id);
@@ -43,11 +48,15 @@ const likeSong = () => {
       </h3>
       <span class="md:text-sm text-xs">{{props.song.name2}}</span>
     </div>
-    <div>
-      <router-link :to="`/songs/${props.song.id}/edit`">Edit</router-link>
+    <div class="flex items-center">
+      <IconEdit
+        v-if="props.isEdit"
+        class="fill-gray-300 hover:fill-green-700"
+        @click="clickEdit(props.song.id)"
+      />
       <SupportIcon
         :class="{'fill-green-700': props.song.isFavorite }"
-        class="fill-gray-300 hover:fill-green-700"
+        class="mt-1 ml-2 fill-gray-300 hover:fill-green-700"
         @click="likeSong()"
       />
     </div>

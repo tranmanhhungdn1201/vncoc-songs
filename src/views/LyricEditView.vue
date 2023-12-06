@@ -46,6 +46,6 @@ var toolbarOptions = [
         </button>
       </div>
     </div>
-    <div class="text-base leading-8 mt-5" v-html="song?.lyric"></div>
+    <div class="mt-5" v-html="song?.lyric"></div>
   </div>
 </template>

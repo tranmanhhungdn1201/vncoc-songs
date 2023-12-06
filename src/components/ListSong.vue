@@ -1,11 +1,16 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted} from 'vue';
 import SongItem from './SongItem.vue'
 import { useSongStore } from '../stores/songs'
 import { storeToRefs } from 'pinia'
+import { checkAuth } from '../helper/firebase.helper';
 const { listSong, loading } = storeToRefs(useSongStore());
 const { searchSong } = useSongStore();
 const textSeach = ref('');
+const isEdit = ref(false);
+onMounted(async () => {
+  isEdit.value = await checkAuth();
+})
 </script>
 
 <template>
@@ -23,6 +28,7 @@ const textSeach = ref('');
     <template v-if="!loading && listSong.length">
       <SongItem
           v-for="(song, idx) in listSong"
+            :isEdit="isEdit"
             :song="song"
             :key="idx"
           >

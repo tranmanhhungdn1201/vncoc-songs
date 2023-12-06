@@ -30,6 +30,6 @@ var toolbarOptions = [
     <p class="mb-2 bg-green-100 w-14 mx-auto text-green-800 text-base font-semibold px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ song?.id }}</p>
     <h1 class="font-semibold md:text-2xl text-lg mb-2 leading-8">{{ song?.name1 }}</h1>
     <h2 class="md:text-lg text-base mb-2">{{ song?.name2 ? `(${song?.name2})` : '' }}</h2>
-    <div class="text-base leading-8 mt-5" v-html="song?.lyric"></div>
+    <div class="mt-5" v-html="song?.lyric"></div>
   </div>
 </template>
