@@ -28,11 +28,9 @@ const likeSong = () => {
   if (idxSong !== -1) {
     lgFavorite.splice(idxSong, 1);
     props.song.isFavorite = false;
-    toast.success('Đã hủy chọn bài hát yêu thích!');
   } else {
     props.song.isFavorite = true;
     lgFavorite.push(props.song.id);
-    toast.success('Đã chọn thành bài hát yêu thích!');
   }
   lgFavorite = [...new Set(lgFavorite)];
   saveState(lgFavorite, 'favorite');
@@ -62,3 +60,7 @@ const likeSong = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+
+</style>

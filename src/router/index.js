@@ -9,6 +9,9 @@ import { checkAuth, logout } from '../helper/firebase.helper'
 const router = createRouter({
   // history: createWebHashHistory(import.meta.env.BASE_URL),
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior (to, from, savedPosition) {
+    return { top: 0 };
+  },
   routes: [
     {
       path: '/login',

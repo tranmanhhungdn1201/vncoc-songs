@@ -102,13 +102,17 @@ export const useSongStore = defineStore('songs', {
       let data = this.songsOriginal;
       this.songs = data.filter(song => {
         const songTitle1WithoutDiacritics = that.removeDiacritics(song.name1.toLowerCase());
-        let rs = songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || song.id.includes(searchTermWithoutDiacritics);
+        const songLyric = that.removeDiacritics(that.removeHTMLTag(song.lyric.toLowerCase()));
+        let rs = songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || song.id.includes(searchTermWithoutDiacritics) || songLyric.includes(searchTermWithoutDiacritics);
         if (song.name2) {
           const songTitle2WithoutDiacritics = that.removeDiacritics(song.name2.toLowerCase());
           return rs || songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics)
         }
         return rs;
       });
+    },
+    removeHTMLTag(str) {
+      return str.normalize('NFD').replace(/<[^>]*>/g, '');
     },
     removeDiacritics(str) {
       return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');

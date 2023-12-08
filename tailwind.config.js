@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    future: {
+        hoverOnlyWhenSupported: true,
+    },
     purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
     content: [],
     theme: {
