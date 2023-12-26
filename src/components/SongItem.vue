@@ -3,8 +3,6 @@ import SupportIcon from './icons/IconSupport.vue'
 import IconEdit from './icons/IconEdit.vue'
 import { useRouter } from 'vue-router';
 import { loadState, saveState } from '../helper/localStorage.helper'
-import { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
 import { useSongStore } from '../stores/songs';
 const router = useRouter();
 

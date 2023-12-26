@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" data-name="레이어 1" width="30" viewBox="-3 -5 48 60" x="0px" y="0px">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" data-name="레이어 1" width="30" viewBox="0 8 48 60" x="0px" y="0px">
     <path d="M5.29,12.67H30.2a1,1,0,0,0,0-2H5.29a1,1,0,0,0,0,2Z"/>
     <path d="M23,21.77H5.28a1,1,0,0,0,0,2H23a1,1,0,0,0,0-2Z"/>
     <path d="M18,33.36H5.2a1,1,0,0,0,0,2H18a1,1,0,0,0,0-2Z"/>

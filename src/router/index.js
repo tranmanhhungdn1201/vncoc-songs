@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import LyricView from '../views/LyricView.vue'
 import LoginView from '../views/LoginView.vue'
 import LyricEditView from '../views/LyricEditView.vue'
+import SettingView from '../views/SettingView.vue'
 import NotFound from '../views/NotFound.vue'
 import { checkAuth, logout } from '../helper/firebase.helper'
 
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/songs/:id/edit',
       name: 'single-song-edit',
       component: LyricEditView
+    },
+    {
+      path: '/setting',
+      name: 'setting',
+      component: SettingView
     },
     { path: "/:catchAll(.*)", component: NotFound }
   ]

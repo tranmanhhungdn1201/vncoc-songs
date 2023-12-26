@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import DocumentationIcon from './components/icons/IconDocumentation.vue'
 import IconFavoriteOutLine from './components/icons/IconFavoriteOutLine.vue'
 import IconBack from './components/icons/IconBack.vue'
+import IconSetting from './components/icons/IconSetting.vue'
 import { useSongStore } from './stores/songs';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
@@ -14,6 +15,10 @@ fetchFavoriteIds();
 fetchSongs();
 const clickTab = (tabName) => {
   changeTab(tabName);
+  if (tabName == 'setting') {
+    router.push('/setting');
+    return;
+  }
   if (router.currentRoute._value.name != 'home') {
     router.push(`/`);
   }
@@ -21,25 +26,25 @@ const clickTab = (tabName) => {
 </script>
 
 <template>
-  <header class="sticky top-0 bg-white border-b pb-2 z-50" v-show="$route.path !== '/login'">
+  <header class="sticky top-0 bg-white border-b z-50" v-show="$route.path !== '/login'">
     <div>
       <div class="text-center">
-        <h1 class="green lg:text-4xl text-3xl font-semibold lg:mb-4 mb-0">VNCOC SONGS</h1>
+        <h1 class="green lg:text-4xl text-3xl font-semibold lg:mb-4 mb-2">VNCOC SONGS</h1>
       </div>
-      <nav class="flex justify-center gap-2">
-        <a class="menu flex justify-center items-center cursor-pointer text-black" :class="{ 'text-emerald-500': tab == 'normal'}" @click="clickTab('normal')">
-          <DocumentationIcon />
-          <span class="lg:text-base text-sm">Danh sách</span>
-        </a>
-        <a class="menu flex justify-center items-center gap-2 border-l pl-2 cursor-pointer text-black" :class="{ 'text-emerald-500': tab == 'favorite'}" @click="clickTab('favorite')">
+      <nav class="flex flex-row justify-center">
+        <button class="px-6 block hover:text-emerald-500 focus:outline-none font-medium" :class="{ 'text-emerald-500': tab == 'normal', 'border-emerald-500': tab == 'normal'}"  @click="clickTab('normal')">
+          <DocumentationIcon/>
+        </button>
+        <button class="pb-4 px-6 block hover:text-emerald-500 focus:outline-none" :class="{ 'text-emerald-500': tab == 'favorite', 'border-emerald-500': tab == 'favorite'}" @click="clickTab('favorite')">
           <IconFavoriteOutLine />
-          <span class="lg:text-base text-sm">Yêu thích</span>
-        </a>
-        <a v-if="tab == 'back'" class="menu flex justify-center items-center gap-2 border-l pl-2 cursor-pointer text-black" :class="{ 'text-emerald-500': tab == 'back'}" @click="clickTab('normal')">
+        </button>
+        <button class="pb-4 px-6 block hover:text-emerald-500 focus:outline-none" :class="{ 'text-emerald-500': tab == 'setting', 'border-emerald-500': tab == 'setting'}" @click="clickTab('setting')">
+          <IconSetting/>
+        </button>
+        <button v-if="tab == 'back'" class="text-gray-600 pb-4 px-6 block hover:text-emerald-500 focus:outline-none"  @click="clickTab('normal')">
           <IconBack/>
-          <span class="lg:text-base text-sm">Quay lại</span>
-        </a>
-      </nav>
+        </button>
+    </nav>
     </div>
   </header>
   <SlideTransition>

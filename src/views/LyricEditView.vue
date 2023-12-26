@@ -31,7 +31,7 @@ var toolbarOptions = [
 </script>
 <template>
   <div v-if="song?.id" class="max-w-screen-xl my-0 mx-auto pb-20 px-4 flex flex-col pt-5 border-grey-500 leading-5 bg-scroll whitespace-pre-line text-center">
-    <p class="mb-2 bg-green-100 w-14 mx-auto text-green-800 text-base font-semibold px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ song?.id }}</p>
+    <p class="bg-green-100 w-14 mx-auto text-green-800 text-base font-semibold px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ song?.id }}</p>
     <div class="mt-2">
       <input type="text" class="font-semibold text-center md:text-2xl text-lg mb-2 leading-8" :value="song?.name1" @change="song.name1 = $event.target.value" @keyup.enter="saveSong"/>
       <br>
