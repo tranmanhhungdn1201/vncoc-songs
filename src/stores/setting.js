@@ -3,7 +3,6 @@ import { defineStore } from 'pinia'
 
 export const useSettingStore = defineStore('auth', () => {
   const getDefaultSettings = () => ({
-    textSizeLyric: 19,
     isAutoScroll: false
   })
   const getSettings = () => {
@@ -14,7 +13,6 @@ export const useSettingStore = defineStore('auth', () => {
   const updateSettings = () => {
     this.settings = {
       ...this.settings,
-      ...partialSettings,
     }
 
     localStorage.setItem(STORE_NAME, JSON.stringify(this.settings))
