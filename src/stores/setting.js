@@ -3,9 +3,10 @@ import { defineStore } from 'pinia'
 
 export const useSettingStore = defineStore('auth', () => {
   const getDefaultSettings = () => ({
-    isAutoScroll: false
+    isAutoScroll: true
   })
   const getSettings = () => {
+    return getDefaultSettings();
     const settings = localStorage.getItem('settings')
   
     return settings ? JSON.parse(settings) : getDefaultSettings()

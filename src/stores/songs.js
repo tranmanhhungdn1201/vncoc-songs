@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { getData, writeLyric, signIn } from "../helper/firebase.helper";
 import { loadState } from '../helper/localStorage.helper'
-import { toast } from 'vue3-toastify';
 
 export const useSongStore = defineStore('songs', {
   state: () => ({
@@ -83,7 +82,7 @@ export const useSongStore = defineStore('songs', {
         this.songLyricOrigin = song.lyric;
         this.tab = 'back';
       } catch (error) {
-        toast.error('Error');
+        console.error('Error');
         document.location.href = '/'
         this.error = error
       }
@@ -124,11 +123,11 @@ export const useSongStore = defineStore('songs', {
       const songIdx = +this.song.id - 1;
       writeLyric(songIdx, this.song);
       this.songLyricOrigin = this.song.lyric;
-      toast.success('Chỉnh sửa thành công.');
+      console.log('Chỉnh sửa thành công.');
     },
     revertLyric() {
       this.song.lyric = this.songLyricOrigin
-      toast.success('Đặt lại thành công.');
+      console.log('Đặt lại thành công.');
     }
   },
 })

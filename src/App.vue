@@ -38,9 +38,9 @@ const clickTab = (tabName) => {
         <button class="pb-4 px-6 block hover:text-emerald-500 focus:outline-none" :class="{ 'text-emerald-500': tab == 'favorite', 'border-emerald-500': tab == 'favorite'}" @click="clickTab('favorite')">
           <IconFavoriteOutLine />
         </button>
-        <button class="pb-4 px-6 block hover:text-emerald-500 focus:outline-none" :class="{ 'text-emerald-500': tab == 'setting', 'border-emerald-500': tab == 'setting'}" @click="clickTab('setting')">
+        <!-- <button class="pb-4 px-6 block hover:text-emerald-500 focus:outline-none" :class="{ 'text-emerald-500': tab == 'setting', 'border-emerald-500': tab == 'setting'}" @click="clickTab('setting')">
           <IconSetting/>
-        </button>
+        </button> -->
         <button v-if="tab == 'back'" class="text-gray-600 pb-4 px-6 block hover:text-emerald-500 focus:outline-none"  @click="clickTab('normal')">
           <IconBack/>
         </button>
