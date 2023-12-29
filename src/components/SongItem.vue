@@ -36,18 +36,19 @@ const likeSong = () => {
 }
 </script>
 <template>
-  <div class="item flex cursor-pointer hover:bg-slate-50 p-3 items-center border-b">
-    <span @click="clickSong(props.song.id, $event)" class="bg-green-100 text-green-800 md:text-base text-sm font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">{{ props.song.id }}</span>
+  <div class="item flex cursor-pointer hover:bg-slate-50 p-3 items-center border-b" :class="{'bg-red-50' : song?.resultInTitle}">
+    <span @click="clickSong(props.song.id, $event)" class="bg-green-100 text-green-800 md:text-base text-sm font-semibold me-2 px-2.5 py-0.5 rounded">{{ props.song.id }}</span>
     <div class="flex-1 ml-1 md:ml-5" @click="clickSong(props.song.id, $event)">
       <h3 class="md:text-lg text-sm font-semibold">
         {{props.song.name1}}
+        <font-awesome-icon :icon="['fas', 'music']" v-if="song.src1" class="text-green-500"/>
       </h3>
       <span class="md:text-sm text-xs">{{props.song.name2}}</span>
     </div>
     <div class="flex items-center">
       <IconEdit
         v-if="props.isEdit"
-        class="fill-gray-300 hover:fill-green-700"
+        class="ml-2 fill-gray-300 hover:fill-green-700"
         @click="clickEdit(props.song.id)"
       />
       <SupportIcon

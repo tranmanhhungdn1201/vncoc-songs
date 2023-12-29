@@ -94,19 +94,32 @@ export const useSongStore = defineStore('songs', {
     searchSong(searchTerm) {
       if (searchTerm.trim() == '') {
         this.songs = this.songsOriginal;
+        return;
       }
       searchTerm = searchTerm.toLowerCase();
       const searchTermWithoutDiacritics = this.removeDiacritics(searchTerm);
       const that = this;
-      let data = this.songsOriginal;
+      let data = JSON.parse(JSON.stringify(this.songsOriginal));
       this.songs = data.filter(song => {
+        if (searchTerm.trim() == '') {
+          return true;
+        }
         const songTitle1WithoutDiacritics = that.removeDiacritics(song.name1.toLowerCase());
         const songLyric = that.removeDiacritics(that.removeHTMLTag(song.lyric.toLowerCase()));
-        let rs = songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics) || song.id.includes(searchTermWithoutDiacritics) || songLyric.includes(searchTermWithoutDiacritics);
+        const resultInTitle1 = songTitle1WithoutDiacritics.includes(searchTermWithoutDiacritics);
+        let rs = resultInTitle1 || song.id.includes(searchTermWithoutDiacritics) || songLyric.includes(searchTermWithoutDiacritics);
+        let resultInTitle2 = false;
         if (song.name2) {
           const songTitle2WithoutDiacritics = that.removeDiacritics(song.name2.toLowerCase());
-          return rs || songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics)
+          resultInTitle2 = songTitle2WithoutDiacritics.includes(searchTermWithoutDiacritics)
+          rs = rs || resultInTitle2
         }
+        if (resultInTitle1 || resultInTitle2) {
+          song.resultInTitle = true;
+        } else {
+          song.resultInTitle = false;
+        }
+        
         return rs;
       });
     },

@@ -14,9 +14,11 @@ import {
   faStepBackward,
   faTimes,
   faMusic,
-  faFileAudio
+  faFileAudio,
+  faFont,
+  faCircleInfo
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faPlay, faPause, faStepForward, faStepBackward, faTimes, faMusic, faFileAudio);
+library.add(faPlay, faPause, faStepForward, faStepBackward, faTimes, faMusic, faFileAudio, faFont, faCircleInfo);
 const app = createApp(App).component('font-awesome-icon', FontAwesomeIcon)
 
 app.use(createPinia())

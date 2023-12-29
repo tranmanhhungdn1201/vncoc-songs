@@ -80,10 +80,10 @@ setCurrentSong();
       <main>
         <section class="player">
           <div class="song-details flex justify-center items-center">
-            <div class="">
-              <button class="mb-5 md:mr-5 mr-2 text-xl text-emerald-400" v-if="props.src2" @click="switchMode">
-                <span v-if="isBeat" class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Ko lời</span>
-                <span v-else class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Có lời</span>
+            <div class="flex">
+              <button class="md:mr-5 mr-2 text-xl text-emerald-400" v-if="props.src2" @click="switchMode">
+                <span :class="{'opacity-50' : !isBeat}" class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Beat</span>
+                <span :class="{'opacity-50' : isBeat}" class="mt-1 flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">Vocal</span>
               </button>
               <button class="play" v-if="!isPlaying" @click="play">
                 <font-awesome-icon icon="play"/>
@@ -109,8 +109,8 @@ setCurrentSong();
                   </template>
               </vue-slider>
               <div class="flex justify-between text-sm leading-6 mt-0">
-                <div class="text-emerald-500 transition-all duration-500 dark:text-slate-100">{{ currentlyTimer }}</div>
-                <div class="text-emerald-500 transition-all duration-500 dark:text-slate-400">{{ totalTime }}</div>
+                <div class="text-emerald-500 transition-all duration-500">{{ currentlyTimer }}</div>
+                <div class="text-emerald-500 transition-all duration-500">{{ totalTime }}</div>
               </div>
             </div>
           </div>
@@ -129,8 +129,8 @@ setCurrentSong();
   height: 50px;
   box-shadow: -1px 17px 24px -6px rgba(0,0,0,.2);
   font-size: 20px;
-  margin-right: 15px;
-  margin-bottom: 15px;
+  margin-right: 10px;
+  margin-bottom: 20px;
   color: white
 }
 </style>
